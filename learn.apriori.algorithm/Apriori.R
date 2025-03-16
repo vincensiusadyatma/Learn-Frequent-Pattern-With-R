@@ -1,5 +1,5 @@
 
-install.packages("arules")
+#install.packages("arules")
 library(arules)
 
 transactions <- list(
