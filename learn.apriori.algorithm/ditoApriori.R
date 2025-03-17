@@ -1,5 +1,8 @@
 install.packages("arules")
 library(arules)
+library(arulesViz)
+library(ggplot2)
+library(magrittr)
 
 # Cek working directory
 getwd()
@@ -39,3 +42,18 @@ inspect(freq1)
 
 aturan <- apriori(data_trans1)
 inspect(aturan)
+
+#Plotting Frequent Item
+freq <- itemFrequencyPlot(data_trans1)
+freq
+
+# inspect(subset(aturan,rhs %in% "E"))
+
+rule <- apriori(data_trans1,parameter = list(supp=0.6 , confidence=0.8))
+inspect(rule)
+
+scatterPlot <- plot(aturan,method = "scatterplot")
+scatterPlot
+
+groupedPlot <- plot(aturan,method = "grouped")
+groupedPlot
