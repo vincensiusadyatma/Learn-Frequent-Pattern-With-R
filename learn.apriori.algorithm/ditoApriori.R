@@ -60,15 +60,6 @@ scatterPlot
 groupedPlot <- plot(aturan,method = "grouped")
 groupedPlot
 
-# graphs <- plot(aturan,method="graph" , engine = "igraph")
-# graphs
-#
-# lhs_items <- as(aturan@lhs, "character")
-# rhs_items <- as(aturan@rhs, "character")
-#
-# # Step 2: Create a data frame of edges
-# edges <- data.frame(from = lhs_items, to = rhs_items)
-#
-# graph_aturan <- graph_from_data_frame(edges, directed = TRUE)
-#
-# plot(graph_aturan, layout = layout_with_fr) # Using Fruchterman-Reingold layout
+# Visualisasi aturan asosiasi dengan metode graph menggunakan engine igraph
+graphs <- plot(aturan, method="graph", engine = "igraph", control=list(layout=igraph::with_fr()))
+graphs
