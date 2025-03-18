@@ -67,3 +67,4 @@ groupedPlot
 # Visualisasi aturan asosiasi dengan metode graph menggunakan engine igraph
 graphs <- plot(aturan, method="graph", engine = "igraph", control=list(layout=igraph::with_fr()))
 graphs
+
