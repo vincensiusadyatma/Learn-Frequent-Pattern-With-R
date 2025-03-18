@@ -1,0 +1,102 @@
+---
+title: "Apriori 6.6"
+output: html_document
+date: "2025-03-18"
+---
+```{r}
+# Memuat pustaka yang diperlukan
+library(arules)      # Pustaka untuk algoritma Apriori
+library(arulesViz)   # Pustaka untuk visualisasi aturan asosiasi
+library(ggplot2)     # Pustaka untuk visualisasi data
+library(magrittr)    # Pustaka untuk operator piping (%>%)
+library(igraph)      # Pustaka untuk graf
+library(ggraph)  
+```
+```{r}
+# Memeriksa direktori kerja saat ini
+getwd()
+```
+```{r}
+# Membaca data transaksi dari file CSV
+data_trans1 <- read.transactions(
+  file = 'E:/MATERI KULIAH SADHAR/Semester 6/Data Mining/Belajar Visualisasi Data R/Learn-Frequent-Pattern-With-R/learn.apriori.algorithm/dataset/items.csv',
+  sep = ","
+)
+
+```
+
+```{r}
+# Memeriksa transaksi yang telah dimuat
+inspect(data_trans1)
+```
+
+```{r}
+# Menampilkan daftar item yang ada dalam transaksi
+data_trans1@itemInfo
+
+```
+
+```{r}
+# Menampilkan data transaksi
+data_trans1@data
+```
+
+```{r}
+# Menampilkan frekuensi item dalam transaksi (dalam bentuk absolut)
+itemFrequency(data_trans1, type="absolute")
+```
+
+```{r}
+# Menyimpan dan mengurutkan frekuensi item dalam urutan menurun berdasarkan frekuensi absolut
+data1_item <- sort(itemFrequency(data_trans1, type="absolute"), decreasing = TRUE)
+data1_item
+```
+```{r}
+# Menampilkan tiga item yang paling sering muncul
+data1_item[1:3]
+
+```
+```{r}
+# Mengonversi transaksi ke format transaksi
+trans <- as(data_trans1, "transactions")
+trans
+```
+```{r}
+# Menggunakan nilai support yang lebih rendah agar hasil tidak NULL
+freq1 <- apriori(data_trans1, parameter=list(support=0.5, target="frequent itemsets"))
+inspect(freq1)
+```
+
+```{r}
+# Menampilkan aturan yang ditemukan
+aturan <- apriori(data_trans1)
+inspect(aturan)
+```
+```{r}
+# Menampilkan item yang sering muncul
+freq <- itemFrequencyPlot(data_trans1)
+freq
+```
+
+```{r}
+# Menyaring aturan dengan nilai support dan confidence tertentu
+rule <- apriori(data_trans1, parameter = list(supp=0.6, confidence=0.8))
+inspect(rule)
+```
+```{r}
+# Visualisasi aturan asosiasi dengan metode scatter plot
+scatterPlot <- plot(aturan, method = "scatterplot")
+scatterPlot
+```
+```{r}
+# Visualisasi aturan asosiasi dengan metode grouped
+groupedPlot <- plot(aturan, method = "grouped")
+groupedPlot
+```
+```{r}
+
+# Visualisasi aturan asosiasi dengan metode graph menggunakan engine igraph
+graphs <- plot(aturan, method="graph", engine = "igraph", control=list(layout=igraph::with_fr()))
+graphs
+```
+
