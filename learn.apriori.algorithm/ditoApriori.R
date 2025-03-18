@@ -3,13 +3,15 @@ library(arules)
 library(arulesViz)
 library(ggplot2)
 library(magrittr)
+library(igraph)
+library(ggraph)
 
 # Cek working directory
 getwd()
 
 # Baca data transaksi
 data_trans1 <- read.transactions(
-  file = 'D://Projects/r_apriori/Learn-Frequent-Pattern-With-R/learn.apriori.algorithm/items.csv',
+  file = 'D://Projects/r_apriori/Learn-Frequent-Pattern-With-R/learn.apriori.algorithm/dataset/items.csv',
   sep = ","
 )
 
@@ -57,3 +59,16 @@ scatterPlot
 
 groupedPlot <- plot(aturan,method = "grouped")
 groupedPlot
+
+# graphs <- plot(aturan,method="graph" , engine = "igraph")
+# graphs
+#
+# lhs_items <- as(aturan@lhs, "character")
+# rhs_items <- as(aturan@rhs, "character")
+#
+# # Step 2: Create a data frame of edges
+# edges <- data.frame(from = lhs_items, to = rhs_items)
+#
+# graph_aturan <- graph_from_data_frame(edges, directed = TRUE)
+#
+# plot(graph_aturan, layout = layout_with_fr) # Using Fruchterman-Reingold layout
