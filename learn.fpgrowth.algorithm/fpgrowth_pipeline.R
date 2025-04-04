@@ -1,6 +1,4 @@
-# ================================
-# 1. INSTALL & LOAD PACKAGES
-# ================================
+
 install.packages(c("arules", "arulesViz", "visNetwork", "plotly", "htmlwidgets", "webshot2"))
 library(arules)
 library(arulesViz)
@@ -9,9 +7,7 @@ library(plotly)
 library(htmlwidgets)
 library(webshot2)
 
-# ================================
 # 2. DATA TRANSAKSI
-# ================================
 data <- list(
   c("M", "O", "N", "K", "E", "Y"),
   c("D", "O", "N", "K", "E", "Y"),
@@ -21,22 +17,19 @@ data <- list(
 )
 trans <- as(data, "transactions")
 
-# ================================
 # 3. FP-GROWTH (Apriori)
-# ================================
 rules <- apriori(trans, parameter = list(supp = 0.6, conf = 0.8, target = "rules"))
 inspect(sort(rules, by = "lift")[1:10])
 
-# ================================
+
 # 4. VISUALISASI SCATTERPLOT
-# ================================
+
 png("rules_scatter.png", width = 800, height = 600)
 plot(rules, method = "scatterplot", measure = c("support", "confidence"), shading = "lift")
 dev.off()
 
-# ================================
+
 # 5. VISUALISASI 3D PLOTLY
-# ================================
 df_plot <- data.frame(
   support = quality(rules)$support,
   confidence = quality(rules)$confidence,
@@ -65,9 +58,7 @@ plot3d <- plot_ly(
 Sys.setenv(RSTUDIO_PANDOC = "C:/Users/LENOVO/Documents/pandoc-3.6.4")
 saveWidget(plot3d, "rules_plotly.html", selfcontained = TRUE)
 
-# ================================
 # 6. VISNETWORK INTERAKTIF (FIXED)
-# ================================
 if (length(rules) > 0) {
   full_df <- as(rules, "data.frame")
   full_df$lhs <- as.character(full_df$lhs)
@@ -124,6 +115,4 @@ if (length(rules) > 0) {
   message("❌ Tidak ditemukan aturan asosiasi yang memenuhi threshold.")
 }
 
-# ================================
-# DONE 🎉 Semua visualisasi selesai
-# ================================
+
