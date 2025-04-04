@@ -62,19 +62,15 @@ trans <- as(data_trans1, "transactions")
 trans
 ```
 ```{r}
-# Menggunakan nilai support yang lebih rendah agar hasil tidak NULL
-freq1 <- apriori(data_trans1, parameter=list(support=0.5, target="frequent itemsets"))
-inspect(freq1)
-```
-
-```{r}
 # Menampilkan aturan yang ditemukan
 aturan <- apriori(data_trans1)
 inspect(aturan)
 ```
+
+
 ```{r}
 # Menampilkan item yang sering muncul
-freq <- itemFrequencyPlot(data_trans1)
+freq <- itemFrequencyPlot(data_trans1, main = "Item-set 1")
 freq
 ```
 
@@ -83,16 +79,19 @@ freq
 rule <- apriori(data_trans1, parameter = list(supp=0.6, confidence=0.8))
 inspect(rule)
 ```
+
 ```{r}
 # Visualisasi aturan asosiasi dengan metode scatter plot
 scatterPlot <- plot(aturan, method = "scatterplot")
 scatterPlot
 ```
+
 ```{r}
 # Visualisasi aturan asosiasi dengan metode grouped
 groupedPlot <- plot(aturan, method = "grouped")
 groupedPlot
 ```
+
 ```{r}
 
 # Visualisasi aturan asosiasi dengan metode graph menggunakan engine igraph
