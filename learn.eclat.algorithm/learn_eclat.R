@@ -1,10 +1,11 @@
 library(arules)
 
 transactions <- list(
-  c("A", "C", "D"),  # T100
-  c("B", "C", "E"),  # T200
-  c("A", "B", "C", "E"),            # T300 (Diperbaiki)
-  c("B", "E")      # T400
+  c("M", "O", "N", "K", "E", "Y"),  # T100
+  c("D", "O", "N", "K", "E", "Y"),  # T200
+  c("M", "A", "K", "E"),            # T300 (Diperbaiki)
+  c("M", "U", "C", "K", "Y"),       # T400
+  c("C", "O", "K", "I", "E")        # T500
 )
 trans <- as(transactions, "transactions")
 inspect(trans)
