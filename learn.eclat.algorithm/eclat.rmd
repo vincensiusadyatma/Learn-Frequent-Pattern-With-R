@@ -1,0 +1,53 @@
+---
+title: "Analisis Apriori"
+author: "Nama Anda"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+The [R plugin](https://www.jetbrains.com/help/pycharm/r-plugin-support.html) for IntelliJ-based IDEs provides
+handy capabilities to work with the [R Markdown](https://www.jetbrains.com/help/pycharm/r-markdown.html) files.
+To [add](https://www.jetbrains.com/help/pycharm/r-markdown.html#add-code-chunk) a new R chunk,
+position the caret at any line or the code chunk, then click "+".
+
+The code chunk appears:
+```{r}
+
+library(arules)
+transactions <- list(
+  c("M", "O", "N", "K", "E", "Y"),  # T100
+  c("D", "O", "N", "K", "E", "Y"),  # T200
+  c("M", "A", "K", "E"),            # T300 (Diperbaiki)
+  c("M", "U", "C", "K", "Y"),       # T400
+  c("C", "O", "K", "I", "E")        # T500
+)
+
+trans <- as(transactions, "transactions")
+inspect(trans)
+```
+
+Type any R code in the chunk, for example:
+```{r}
+trans
+```
+```{r}
+freq1 <- eclat(trans, parameter = list(support = 0.5, target = "frequent itemsets"))
+inspect(freq1)
+```
+```{r}
+freq2 <- eclat(trans)
+freq2
+```
+```{r}
+inspect(freq2)
+```
+```{r}
+rules <- ruleInduction(freq1, confidence = .8)
+rules
+```
+```{r}
+inspect(sort(rules, by = 'lift'))
+```
+
+Now, click the **Run** button on the chunk toolbar to [execute](https://www.jetbrains.com/help/pycharm/r-markdown.html#run-r-code) the chunk code. The result should be placed under the chunk.
+Click the **Knit and Open Document** to build and preview an output.
