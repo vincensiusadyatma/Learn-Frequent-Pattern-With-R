@@ -1,0 +1,63 @@
+---
+title: "FP-Growth Market Basket Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 📦 Install dan Load Library
+
+```{r install-libs, eval=FALSE}
+install.packages("arules")
+install.packages("arulesViz")
+install.packages("htmlwidgets")
+install.packages("igraph")
+install.packages("visNetwork")
+```
+
+```{r load-libs}
+library(arules)
+library(arulesViz)
+library(htmlwidgets)
+```
+
+## 📂 Data Transaksi
+
+```{r}
+data <- list(
+  c("M", "O", "N", "K", "E", "Y"),    # T100
+  c("D", "O", "N", "K", "E", "Y"),    # T200
+  c("M", "A", "K", "E"),              # T300
+  c("M", "U", "C", "K", "Y"),         # T400
+  c("C", "O", "K", "I", "E")          # T500
+)
+
+trans <- as(data, "transactions")
+inspect(trans)
+```
+
+## 🔍 Menambang Aturan Asosiasi dengan FP-Growth (Apriori)
+
+```{r}
+rules <- apriori(
+  trans,
+  parameter = list(
+    supp = 0.6,
+    conf = 0.8,
+    target = "rules"
+  )
+)
+
+inspect(sort(rules, by = "lift"))
+```
+
+## 🌐 Visualisasi Aturan (Graph Interaktif)
+
+```{r}
+plot_fp <- plot(rules, method = "graph", engine = "htmlwidget")
+htmlwidgets::saveWidget(plot_fp, file = "fp_growth_rules.html", selfcontained = TRUE)
+```
+
+**Note:** Buka file `fp_growth_rules.html` di browser untuk melihat jaringan asosiasi interaktif.
