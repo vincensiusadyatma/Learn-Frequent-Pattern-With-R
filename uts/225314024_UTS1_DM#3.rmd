@@ -1,0 +1,52 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+The [R plugin](https://www.jetbrains.com/help/pycharm/r-plugin-support.html) for IntelliJ-based IDEs provides
+handy capabilities to work with the [R Markdown](https://www.jetbrains.com/help/pycharm/r-markdown.html) files.
+To [add](https://www.jetbrains.com/help/pycharm/r-markdown.html#add-code-chunk) a new R chunk,
+position the caret at any line or the code chunk, then click "+".
+
+The code chunk appears:
+```{r}
+install.packages("arules")
+install.packages("arulesViz")
+install.packages("htmlwidgets")
+install.packages("igraph")
+install.packages("visNetwork")
+library(arules)
+library(arulesViz)
+library(htmlwidgets)
+```
+
+Type any R code in the chunk, for example:
+```{r}
+data <- read.csv('D:/Projects/r_apriori/Learn-Frequent-Pattern-With-R/uts/budidaya_bandeng_2.csv',sep=",")
+trans <- as(data, "transactions")
+
+summary(trans)
+
+```
+```{r}
+rules <- apriori(
+  trans,
+  parameter = list(
+    supp = 0.3,
+    conf = 0.7,
+    target = "rules"
+  )
+)
+
+```
+```{r}
+inspect(sort(rules, by = "lift"))
+
+```
+```{r}
+
+plot_fp <- plot(rules, method = "graph", engine = "htmlwidget")
+htmlwidgets::saveWidget(plot_fp, file = "fp_growth_rules.html", selfcontained = TRUE)
+```
+Now, click the **Run** button on the chunk toolbar to [execute](https://www.jetbrains.com/help/pycharm/r-markdown.html#run-r-code) the chunk code. The result should be placed under the chunk.
+Click the **Knit and Open Document** to build and preview an output.
