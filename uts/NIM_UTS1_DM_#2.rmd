@@ -1,0 +1,25 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+The [R plugin](https://www.jetbrains.com/help/pycharm/r-plugin-support.html) for IntelliJ-based IDEs provides
+handy capabilities to work with the [R Markdown](https://www.jetbrains.com/help/pycharm/r-markdown.html) files.
+To [add](https://www.jetbrains.com/help/pycharm/r-markdown.html#add-code-chunk) a new R chunk,
+position the caret at any line or the code chunk, then click "+".
+
+The code chunk appears:
+```{r}
+library(ggplot2)
+```
+
+Type any R code in the chunk, for example:
+```{r}
+budidaya.bandeng <- read.csv('D:/Projects/r_apriori/Learn-Frequent-Pattern-With-R/uts/budidaya_bandeng_2.csv',sep=",")
+str(budidaya.bandeng)
+
+```
+```{r}
+plot.bandeng <- ggplot(data = budidaya.bandeng, aes(x=Tahun , y=Volume.Produksi,color=Provinsi))
+plot.bandeng + geom_line() + geom_text(aes(label = Volume.Produksi),hjust=-0.2,vjust=-0.5)
+```
